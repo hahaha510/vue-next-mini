@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="../../dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script>
+    const { reactive, effect } = Vue
+    let obj = { name: 'cj', age: 30, flag: true, address: { a: 1 } }
+    const state = reactive(obj)
+    // 问题在于我执行effcet时更新了name 所以还会执行effect 执行又更新name
+    // 一直循环导致栈溢出
+    // 解决办法：如果当前正在执行effect，发生了响应式数据更新，则不重新执行effect
+    // effect(() => {
+    //   app.innerHTML = state.name
+    //   state.name = 11111
+    // })
+
+    // 我们只对第一层属性做了代理,只有他们发生改变才会触发getter
+    // 但是对于嵌套的对象，我们并没有做代理，所以嵌套的对象改变不会触发getter
+    // 解决办法：深度代理
+    // 深度代理：递归代理对象中的所有属性
+    // 1.判断当前属性是否是对象
+    // 2.如果是对象，则递归代理
+    effect(() => {
+      app.innerHTML = state.address.a
+    })
+    setTimeout(() => {
+      state.address.a = 2
+    }, 1000)
+  </script>
+</html>

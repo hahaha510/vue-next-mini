@@ -238,6 +238,7 @@ var Vue = (function (exports) {
     function reactive(target) {
         return createReactiveObject(target);
     }
+<<<<<<< HEAD
     function toReactive(rawvalue) {
         return isObject(rawvalue) ? reactive(rawvalue) : rawvalue;
     }
@@ -332,6 +333,11 @@ var Vue = (function (exports) {
     exports.ref = ref;
     exports.toRef = toRef;
     exports.toRefs = toRefs;
+=======
+
+    exports.effect = effect;
+    exports.reactive = reactive;
+>>>>>>> 2264c35c209f167440b5df5b2b0010cb020de5dc
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

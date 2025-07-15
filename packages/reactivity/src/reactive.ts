@@ -29,7 +29,10 @@ function createReactiveObject(target) {
 export function reactive(target) {
   return createReactiveObject(target)
 }
+<<<<<<< HEAD
 
 export function toReactive(rawvalue){
   return isObject(rawvalue) ? reactive(rawvalue) : rawvalue
 }
+=======
+>>>>>>> 2264c35c209f167440b5df5b2b0010cb020de5dc
