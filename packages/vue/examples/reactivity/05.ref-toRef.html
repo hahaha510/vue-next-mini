@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="../../dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script>
+    const { reactive, effect,ref ,toRef,toRefs,proxyRefs} = Vue
+    let state=reactive({name:'cj',age:18})
+    //我们想要做的是解构出来的name是ref 访问值就name.value
+    // const {name}=state
+    //我想做的是结构出name 并且它具有响应式
+    // const name=toRef(state,'name')
+    const {name,age}=toRefs(state)
+    //
+   let proxy=proxyRefs(toRefs(state))
+   console.log(proxy.name)
+    // console.log(name.value,age.value)
+    //能不能自动给我.value
+    // console.log(state.name)
+  </script>
+</html>

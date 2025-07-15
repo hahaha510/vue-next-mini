@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="../../dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script>
+    const { reactive, effect } = Vue
+    let obj = { name: 'cj', age: 30, flag: true }
+    const state = reactive(obj)
+    effect(() => {
+      app.innerHTML = state.flag + state.flag + state.flag
+      // app.innerHTML = state.flag ? state.name : state.age
+    })
+    // 收集依赖{obj:{flag:{effect},name:{effect}}}
+    //当flag为false的时候  访问age收集依赖 {obj:{flag:{effect},name:{effect},age:{effect}}}
+    // setTimeout(() => {
+    //   state.flag = false
+    //   // 此时为触发name的依赖effect 但此时flag为false 所以不执行effect
+    //   // 即我们期望的是映射表里应该是{obj:{flag:{effect},age:{effect}}}
+    //   setTimeout(() => {
+    //     // 修改name属性 不应该触发effct执行
+    //     state.name = 'zzz'
+    //   })
+    // }, 1000)
+  </script>
+</html>
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="../../dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script>
+    const { reactive, effect } = Vue
+    let obj = { name: 'cj', age: 30 }
+    const state = reactive(obj)
+    effect(() => {
+      app.innerHTML = `姓名${state.name} 年龄${state.age}`
+    })
+    effect(() => {
+      app.innerHTML = `姓名${state.name}`
+    })
+    // setTimeout(() => {
+    //   state.age++
+    // }, 1000)
+  </script>
+</html> -->
